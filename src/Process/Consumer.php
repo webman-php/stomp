@@ -14,7 +14,7 @@
 
 namespace Webman\Stomp\Process;
 
-use support\bootstrap\Container;
+use support\Container;
 use Workerman\Stomp\Client as StompClient;
 use Webman\Stomp\Client;
 
