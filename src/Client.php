@@ -87,7 +87,7 @@ class Client
      */
     public static function connection($name = 'default') {
         if (!isset(static::$_connections[$name])) {
-            $config = config('stomp', []);
+            $config = config('stomp', config('plugin.webman.stomp.stomp', []));
             if (!isset($config[$name])) {
                 throw new \RuntimeException("RedisQueue connection $name not found");
             }

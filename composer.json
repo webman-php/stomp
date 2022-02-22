@@ -1,7 +1,8 @@
 {
   "name": "webman/stomp",
-  "description": "Stomp client written in PHP for webman.",
+  "description": "Stomp queue plugin for webman.",
   "require": {
+    "workerman/webman-framework": "^1.2.1",
     "workerman/stomp": "^1.0"
   },
   "autoload": {
