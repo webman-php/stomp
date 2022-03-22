@@ -19,7 +19,9 @@ class Install
     public static function install()
     {
         static::installByRelation();
-        mkdir(app_path() . '/queue/stomp', 0777, true);
+        if (!is_dir(app_path() . '/queue/stomp')){
+            mkdir(app_path() . '/queue/stomp', 0777, true);
+        }
     }
 
     /**
