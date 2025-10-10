@@ -62,13 +62,14 @@ class Consumer
                 }
                 $consumer = Container::get($class);
                 $connection_name = $consumer->connection ?? 'default';
-                $queue = $consumer->queue;
-                $ack   = $consumer->ack ?? 'auto';
+                $queue   = $consumer->queue;
+                $ack     = $consumer->ack ?? 'auto';
+                $headers = $consumer->headers ?? [];
                 $connection = Client::connection($connection_name);
                 $cb = function ($client, $package, $ack) use ($consumer) {
                     \call_user_func([$consumer, 'consume'], $package['body'], $ack, $client);
                 };
-                $connection->subscribe($queue, $cb, ['ack' => $ack]);
+                $connection->subscribe($queue, $cb, array_merge(['ack' => $ack], $headers));
                 /*if ($connection->getState() == StompClient::STATE_ESTABLISHED) {
                     $connection->subscribe($queue, $cb, ['ack' => $ack]);
                 } else {
