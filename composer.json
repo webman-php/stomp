@@ -2,9 +2,12 @@
   "name": "webman/stomp",
   "description": "Stomp queue plugin for webman.",
   "require": {
-    "workerman/stomp": "^1.0"
+    "workerman/stomp": "^1.0",
+    "workerman/webman-framework": "^2.1 || dev-master"
   },
   "autoload": {
     "psr-4": {"Webman\\Stomp\\": "./src"}
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
