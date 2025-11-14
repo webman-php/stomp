@@ -15,6 +15,7 @@
 namespace Webman\Stomp\Process;
 
 use support\Container;
+use support\Context;
 use Workerman\Stomp\Client as StompClient;
 use Webman\Stomp\Client;
 
@@ -67,7 +68,11 @@ class Consumer
                 $headers = $consumer->headers ?? [];
                 $connection = Client::connection($connection_name);
                 $cb = function ($client, $package, $ack) use ($consumer) {
-                    \call_user_func([$consumer, 'consume'], $package['body'], $ack, $client);
+                    try {
+                        \call_user_func([$consumer, 'consume'], $package['body'], $ack, $client);
+                    } finally {
+                        Context::destroy();
+                    }
                 };
                 $connection->subscribe($queue, $cb, array_merge(['ack' => $ack], $headers));
                 /*if ($connection->getState() == StompClient::STATE_ESTABLISHED) {
